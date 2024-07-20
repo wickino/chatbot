@@ -75,3 +75,11 @@ This README provides instructions on setting up Ollama, your own local ChatGPT-l
 * Explore different Ollama models and configurations based on your performance requirements.
 
 
+
+## Useful Links
+
+* **Ollama:** https://ollama.com/
+* **Ubuntu Download:** https://ubuntu.com/download/desktop
+* **Install CUDA on Ubuntu:** https://www.cherryservers.com/blog/install-cuda-ubuntu
+* **Portainer Documentation:** https://docs.portainer.io/start/install-ce/server/docker/linux
+* **OpenWebUI GitHub:** https://github.com/open-webui/open-webui
