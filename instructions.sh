@@ -86,7 +86,56 @@ echo "[botdetection.ip_limit]
 link_token = true" > /home/$USER/chatbot/searxng/limiter.toml 
 
 ## searxng/uwsgi.ini
+echo "[uwsgi]
+# Who will run the code
+uid = searxng
+gid = searxng
 
+# Number of workers (usually CPU count)
+# default value: %k (= number of CPU core, see Dockerfile)
+workers = %k
+
+# Number of threads per worker
+# default value: 4 (see Dockerfile)
+threads = 4
+
+# The right granted on the created socket
+chmod-socket = 666
+
+# Plugin to use and interpreter config
+single-interpreter = true
+master = true
+plugin = python3
+lazy-apps = true
+enable-threads = 4
+
+# Module to import
+module = searx.webapp
+
+# Virtualenv and python path
+pythonpath = /usr/local/searxng/
+chdir = /usr/local/searxng/searx/
+
+# automatically set processes name to something meaningful
+auto-procname = true
+
+# Disable request logging for privacy
+disable-logging = true
+log-5xx = true
+
+# Set the max size of a request (request-body excluded)
+buffer-size = 8192
+
+# No keep alive
+# See https://github.com/searx/searx-docker/issues/24
+add-header = Connection: close
+
+# uwsgi serves the static files
+static-map = /static=/usr/local/searxng/searx/static
+# expires set to one day
+static-expires = /* 86400
+static-gzip-all = True
+offload-threads = 4" > /home/$USER/chatbot/searxng/uwsgi.ini 
 
 ##PORTAINER COMPOSE
 version: '3.8'
@@ -139,5 +188,3 @@ services:
       - /home/viktor/chatbot/searxng:/etc/searxng
 
     restart: always
-
-
