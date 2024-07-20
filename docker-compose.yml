@@ -1,0 +1,51 @@
+##PORTAINER COMPOSE
+version: '3.8'
+
+services:
+  ollama-backend:
+    image: ollama/ollama
+    deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities:
+                              - gpu
+    ports:
+      - "11434:11434"
+    volumes:
+      - /home/viktor/chatbot/ollama:/root/.ollama
+    restart: always
+    container_name: ollama-backend
+
+  ollama-openweb-ui:
+    image: ghcr.io/open-webui/open-webui:main
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      ENABLE_RAG_WEB_SEARCH: True
+      RAG_WEB_SEARCH_ENGINE: "searxng"
+      RAG_WEB_SEARCH_RESULT_COUNT: 3
+      RAG_WEB_SEARCH_CONCURRENT_REQUESTS: 10
+      SEARXNG_QUERY_URL: "http://searxng:8080/search?q=<query>"
+
+
+    ports:
+      - "3000:8080"
+    volumes:
+      - /home/viktor/chatbot/open-webui:/app/backend/data
+    depends_on:
+      - ollama-backend
+    restart: always
+    container_name: ollama-openweb-ui
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "8180:8080"
+    volumes:
+      - /home/viktor/chatbot/searxng:/etc/searxng
+
+    restart: always
