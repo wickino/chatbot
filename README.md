@@ -69,11 +69,12 @@ This README provides instructions on setting up Ollama, your own local ChatGPT-l
      ```bash
      docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
      ```
-     - Access Portainer at `http://localhost:9000`
+     - Access Portainer at `https://0.0.0.0:9443/`
 
 6. **Ollama Environment Setup**
    - Create the required folders on your system:
      ```bash
+     mkdir /home/$USER/chatbot/
      mkdir /home/$USER/chatbot/searxng
      mkdir /home/$USER/chatbot/open-webui
      mkdir /home/$USER/chatbot/ollama
