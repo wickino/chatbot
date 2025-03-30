@@ -5,7 +5,7 @@ This README provides instructions on setting up Ollama, your own local ChatGPT-l
 ## Prerequisites
 
 * **Hardware:** A computer with an NVIDIA GPU that supports CUDA.
-* **Software:** Ubuntu desktop distribution installed.
+* **Software:** Ubuntu desktop distribution installed Ubuntu 24.04.2 LTS.
 
 ##  Step-by-Step Guide
 
